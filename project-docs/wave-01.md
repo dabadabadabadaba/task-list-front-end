@@ -26,9 +26,9 @@ Read through the code in `App.js`, `TaskList.js` and `Task.js` and their style s
     - Consider making this change and the subsequent necessary changes through the rest of the component to deepen your understanding of the code.
 3. How is the ~~strikethrough~~ style applied when the task title is clicked? `A: The tasks are actually buttons and there's a ternary in line 8 of Task.js`
     - Consider updating the appropriate rule sets to change the text or background color when a task is marked complete.
-4. What `props` does `TaskList` have? Where do they come from?
-5. Where is the function `getTaskListJSX` called in `TaskList`?
-    - How would the code change without this helper function?
+4. What `props` does `TaskList` have? Where do they come from? `A: The props are id, title and isComplete. They come from App.js, specifically from the constant "TASKS"`
+5. Where is the function `getTaskListJSX` called in `TaskList`? `It's being called on line 19, which is a return of an unordered list with all the tasks`
+    - How would the code change without this helper function?`We replaced the helper function with the actual content of the function and it worked!`
 6. What component is `TASKS` passed to in `App`?
     - How does the component pass `TASKS`?
     - What element is the component wrapped in?
