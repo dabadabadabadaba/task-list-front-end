@@ -1,28 +1,47 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import React from 'react';
 import TaskList from './components/TaskList.js';
 import './App.css';
 
-const INITIAL_TASKS = [
-  {
-    id: 1,
-    title: 'Mow the lawn',
-    isComplete: false,
-  },
-  {
-    id: 2,
-    title: 'Cook Pasta',
-    isComplete: true,
-  },
-];
+// const INITIAL_TASKS = [
+//   {
+//     id: 1,
+//     title: 'Mow the lawn',
+//     isComplete: false,
+//   },
+//   {
+//     id: 2,
+//     title: 'Cook Pasta',
+//     isComplete: true,
+//   },
+// ];
 
 const App = () => {
-  const initialCopy = INITIAL_TASKS.map((task) => {
-    return { ...task };
-  });
+  // const initialCopy = INITIAL_TASKS.map((task) => {
+  //   return { ...task };
+  // });
+  const URL = 'https://task-list-api-c17.herokuapp.com';
 
-  const [tasksList, setTasksList] = useState(initialCopy);
+  const [tasksList, setTasksList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(URL)
+      .then((response) => {
+        console.log('this is response.data', response.data);
+        const taskAPICopy = response.map((task) => {
+          return {
+            ...task,
+          };
+        });
+        setTasksList(taskAPICopy);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const updateComplete = (taskId, updatedComplete) => {
     console.log('updateComplete called');
