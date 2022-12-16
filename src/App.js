@@ -41,6 +41,17 @@ const App = () => {
     setTasksList(newTasksList);
   };
 
+  const deleteTask = (taskId) => {
+    console.log('deleteTask called');
+    const newTasksList = [];
+    for (const task of tasksList) {
+      if (task.id !== taskId) {
+        newTasksList.push(task);
+      }
+    }
+    setTasksList(newTasksList);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -48,7 +59,13 @@ const App = () => {
       </header>
       <main>
         <div>
-          {<TaskList tasks={tasksList} updateComplete={updateComplete} />}
+          {
+            <TaskList
+              tasks={tasksList}
+              updateComplete={updateComplete}
+              deleteTask={deleteTask}
+            />
+          }
         </div>
       </main>
     </div>
