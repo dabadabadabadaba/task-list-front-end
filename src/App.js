@@ -22,7 +22,7 @@ const App = () => {
   // const initialCopy = INITIAL_TASKS.map((task) => {
   //   return { ...task };
   // });
-  const URL = 'https://task-list-api-c17.herokuapp.com';
+  const URL = 'https://task-list-api-c17.herokuapp.com/tasks';
 
   const [tasksList, setTasksList] = useState([]);
 
@@ -30,8 +30,8 @@ const App = () => {
     axios
       .get(URL)
       .then((response) => {
-        console.log('this is response.data', response.data);
-        const taskAPICopy = response.map((task) => {
+        // console.log('this is response.data', response.data);
+        const taskAPICopy = response.data.map((task) => {
           return {
             ...task,
           };
@@ -46,18 +46,30 @@ const App = () => {
   const updateComplete = (taskId, updatedComplete) => {
     console.log('updateComplete called');
     const newTasksList = [];
-    for (const task of tasksList) {
-      if (task.id != taskId) {
-        newTasksList.push(task);
-      } else {
-        const newTask = {
-          ...task,
-          isComplete: updatedComplete,
-        };
-        newTasksList.push(newTask);
-      }
+    let mark = 'mark_incomplete'; // incomplete is requestd (false) -> mark incomplete
+    if (updatedComplete) {
+      mark = 'mark_complete'; // complete is requested (true) -> mark complete
     }
-    setTasksList(newTasksList);
+    axios
+      .patch(`${URL}/${taskId}/${mark}`)
+      .then((response) => {
+        for (const task of tasksList) {
+          if (task.id != taskId) {
+            newTasksList.push(task);
+          } else {
+            console.log(updatedComplete);
+            const newTask = {
+              ...task,
+              isComplete: updatedComplete,
+            };
+            newTasksList.push(newTask);
+          }
+        }
+        setTasksList(newTasksList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const deleteTask = (taskId) => {
