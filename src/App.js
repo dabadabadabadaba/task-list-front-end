@@ -34,6 +34,7 @@ const App = () => {
         const taskAPICopy = response.data.map((task) => {
           return {
             ...task,
+            isComplete: task.is_complete,
           };
         });
         setTasksList(taskAPICopy);

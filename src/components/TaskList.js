@@ -6,13 +6,12 @@ import './TaskList.css';
 const TaskList = ({ tasks, updateComplete, deleteTask }) => {
   const getTaskListJSX = (tasks) => {
     return tasks.map((task) => {
-      console.log(task);
       return (
         <Task
           key={task.id}
           id={task.id}
           title={task.title}
-          isComplete={task.is_complete}
+          isComplete={task.isComplete}
           updateComplete={updateComplete}
           deleteTask={deleteTask}
         />
