@@ -30,7 +30,6 @@ const App = () => {
     axios
       .get(URL)
       .then((response) => {
-        // console.log('this is response.data', response.data);
         const taskAPICopy = response.data.map((task) => {
           return {
             ...task,
@@ -47,7 +46,7 @@ const App = () => {
   const updateComplete = (taskId, updatedComplete) => {
     console.log('updateComplete called');
     const newTasksList = [];
-    let mark = 'mark_incomplete'; // incomplete is requestd (false) -> mark incomplete
+    let mark = 'mark_incomplete'; // incomplete is requested (false) -> mark incomplete
     if (updatedComplete) {
       mark = 'mark_complete'; // complete is requested (true) -> mark complete
     }
@@ -75,13 +74,21 @@ const App = () => {
 
   const deleteTask = (taskId) => {
     console.log('deleteTask called');
-    const newTasksList = [];
-    for (const task of tasksList) {
-      if (task.id !== taskId) {
-        newTasksList.push(task);
-      }
-    }
-    setTasksList(newTasksList);
+
+    axios
+      .delete(`${URL}/${taskId}`)
+      .then(() => {
+        const newTasksList = [];
+        for (const task of tasksList) {
+          if (task.id !== taskId) {
+            newTasksList.push(task);
+          }
+        }
+        setTasksList(newTasksList);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
