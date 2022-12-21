@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import React from 'react';
 import TaskList from './components/TaskList.js';
+import NewTaskForm from './components/NewTaskForm.js';
 import './App.css';
 
 // const INITIAL_TASKS = [
@@ -98,13 +99,12 @@ const App = () => {
       </header>
       <main>
         <div>
-          {
-            <TaskList
-              tasks={tasksList}
-              updateComplete={updateComplete}
-              deleteTask={deleteTask}
-            />
-          }
+          <TaskList
+            tasks={tasksList}
+            updateComplete={updateComplete}
+            deleteTask={deleteTask}
+          />
+          <NewTaskForm />
         </div>
       </main>
     </div>
