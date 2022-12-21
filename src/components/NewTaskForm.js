@@ -1,21 +1,14 @@
 import React, { useState } from 'react';
 import './NewTaskForm.css';
 
-const TEST_TASKS = [
-  {
-    id: 1,
-    title: 'Mow the lawn',
-    isComplete: false,
-  },
-  {
-    id: 2,
-    title: 'Cook Pasta',
-    isComplete: true,
-  },
-];
+const INITIAL_FORM_DATA = {
+  title: 'Task Title',
+  description: 'Type the description here',
+  isComplete: false,
+};
 
 const NewTaskForm = () => {
-  const [formData, setFormData] = useState(TEST_TASKS);
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
   const handleChange = (e) => {
     console.log('handleChange called');
