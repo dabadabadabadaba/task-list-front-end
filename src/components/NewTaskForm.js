@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './NewTaskForm.css';
+import PropTypes from 'prop-types';
 
 const INITIAL_FORM_DATA = {
   title: 'Task Title',
@@ -7,7 +8,7 @@ const INITIAL_FORM_DATA = {
   isComplete: false,
 };
 
-const NewTaskForm = () => {
+const NewTaskForm = (props) => {
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
   const handleChange = (e) => {
@@ -23,8 +24,12 @@ const NewTaskForm = () => {
     setFormData(newFormData);
   };
 
+  const handleNewTaskSubmit = (e) => {
+    e.preventDefault();
+    props.addTaskCallbackFunc(formData);
+  };
   return (
-    <form>
+    <form onSubmit={handleNewTaskSubmit}>
       <label htmlFor="title">Task</label>
       <input
         type="text"
@@ -48,4 +53,7 @@ const NewTaskForm = () => {
   );
 };
 
+NewTaskForm.propTypes = {
+  addTaskCallbackFunc: PropTypes.func.isRequired,
+};
 export default NewTaskForm;

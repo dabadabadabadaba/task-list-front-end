@@ -92,6 +92,23 @@ const App = () => {
       });
   };
 
+  const addTask = (newTaskInfo) => {
+    axios
+      .post(URL, newTaskInfo)
+      .then((response) => {
+        const newTasks = [...tasksList];
+        const newTaskJSON = {
+          ...newTaskInfo,
+          id: response.data.id,
+        };
+        newTasks.push(newTaskJSON);
+        setTasksList(newTasks);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -104,7 +121,7 @@ const App = () => {
             updateComplete={updateComplete}
             deleteTask={deleteTask}
           />
-          <NewTaskForm />
+          <NewTaskForm addTaskCallbackFunc={addTask} />
         </div>
       </main>
     </div>
