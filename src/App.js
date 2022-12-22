@@ -96,10 +96,11 @@ const App = () => {
     axios
       .post(URL, newTaskInfo)
       .then((response) => {
+        console.log('response', response.data);
         const newTasks = [...tasksList];
         const newTaskJSON = {
           ...newTaskInfo,
-          id: response.data.id,
+          id: response.data.task.id,
         };
         newTasks.push(newTaskJSON);
         setTasksList(newTasks);
